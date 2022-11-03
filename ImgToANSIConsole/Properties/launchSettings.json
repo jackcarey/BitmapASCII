@@ -1,0 +1,27 @@
+{
+  "profiles": {
+    "ImgToANSIConsole": {
+      "commandName": "Project"
+    },
+    "ASCIIArt - cat at 80": {
+      "commandName": "Project",
+      "commandLineArgs": "cat256.jpg 80"
+    },
+    "ASCIIArt - dog at 128": {
+      "commandName": "Project",
+      "commandLineArgs": "dog.jpg 128"
+    },
+    "ASCIIArt - dog at 512": {
+      "commandName": "Project",
+      "commandLineArgs": "dog.jpg 512"
+    },
+    "ASCIIArt - cat at 120": {
+      "commandName": "Project",
+      "commandLineArgs": "cat256.jpg 120"
+    },
+    "ASCIIArt - gradient": {
+      "commandName": "Project",
+      "commandLineArgs": "gradient.jpg"
+    }
+  }
+}
