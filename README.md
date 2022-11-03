@@ -15,7 +15,7 @@ void PrintASCII(this Bitmap src, int minSide, bool fit = true,bool useLongArray=
 
 ## Examples
 
-```
+```csharp
 Bitmap bmp = new Bitmap(filePath);
 bmp.PrintASCII();                  //print using default settings
 bmp.PrintASCII(width);             //print at a desired width, but stay responsive
