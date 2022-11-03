@@ -1,6 +1,6 @@
 # BitmapASCII
 
-Extends C#'s [Bitmap](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.bitmap) class to add a [`PrintASCII()`](https://github.com/jackcarey/BitmapASCII/blob/main/ImgToANSIConsole/ASCIIPrint.cs) function that can be used in Windows console applications to render images as crude text.
+Extends C#'s [Bitmap](https://learn.microsoft.com/en-us/dotnet/api/system.drawing.bitmap) class to add a [`PrintASCII()`](https://github.com/jackcarey/BitmapASCII/blob/main/ImgToANSIConsole/ASCIIPrint.cs) function that can be used in Windows console applications to render images as crude, colorful text.
 
 The latest version is on the [releases page](https://github.com/jackcarey/BitmapASCII/releases).
 
