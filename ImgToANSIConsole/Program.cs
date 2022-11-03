@@ -23,11 +23,16 @@ if (args.Length == 1 || args.Length == 2)
     }
     string name = info.Name.Replace(info.Extension, "");
     Console.WriteLine("Printing '" + name + "'...\n");
-    new Bitmap(info.FullName).PrintASCII(width);
+    Bitmap bmp = new Bitmap(info.FullName);
+    bmp.PrintASCII();
+    bmp.PrintASCII(width);
+    bmp.PrintASCII(width,false);
+    bmp.PrintASCII(width, true, true);
+
     return 0;
 }
 else
 {
-    Console.WriteLine("Create an ASCII representation of an image. Must be run from the command line. Arguments:\n1st. Path to local image file.\n2nd. Width in characters, default: 80.");
+    Console.WriteLine("Create an ASCII representation of an image. Must be run from the command line. Arguments:\n1st. Path to local image file.\n2nd. Minimum side in characters, default: 80.");
     return -1;
 }

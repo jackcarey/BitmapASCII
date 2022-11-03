@@ -39,7 +39,7 @@ public static class ASCIIPrint
     /**
      * Print the BitMap to the console on Windows.
      */
-    public static void PrintASCII(this Bitmap src, int minSide, bool fit = true,bool useLongArray=false)
+    public static void PrintASCII(this Bitmap src, int minSide=0, bool fit = true,bool useLongArray=false)
     {
         ConsoleColor origBg = Console.BackgroundColor;
         ConsoleColor origFg = Console.ForegroundColor;
