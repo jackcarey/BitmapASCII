@@ -11,7 +11,7 @@ void PrintASCII(this Bitmap src, int minSide, bool fit = true,bool useLongArray=
 
 ## Parameters
 
-- `minSide` - the minimum size of the image specified as a number of rows or columns. The smallest dimension of the image is used.
+- `minSide` - the minimum width or height of the image specified as a number of columns or rows. The smallest dimension of the image is used.
 - `fit` - Should the image be resized to fit inside console window if `minSide` would overflow.
 - `useLongArray` - Two character shading arrays are provided to fill in each cell. The short one is used by default. The long one uses more characters but you might prefer one style over the other.
 
