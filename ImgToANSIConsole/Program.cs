@@ -4,7 +4,7 @@ if (args.Length == 1 || args.Length == 2)
 {
     string path = args[0];
     int width = 0;
-    if (args.Length==2 && args[1].Length > 0)
+    if (args.Length == 2 && args[1].Length > 0)
     {
         int.TryParse(args[1], out width);
     }
@@ -24,10 +24,22 @@ if (args.Length == 1 || args.Length == 2)
     string name = info.Name.Replace(info.Extension, "");
     Console.WriteLine("Printing '" + name + "'...\n");
     Bitmap bmp = new Bitmap(info.FullName);
-    bmp.PrintASCII();
+
+    Console.WriteLine("The most dominant console colors in the image are:");
+    ConsoleColor[] cols = bmp.DominantConsoleColors(4);
+    ConsoleColor orig = Console.ForegroundColor;
+    foreach (ConsoleColor col in cols)
+    {
+        Console.ForegroundColor = col;
+        Console.Write("██ ");
+    }
+    Console.Write("\n\n");
+    Console.ForegroundColor = orig;
+
+    //bmp.PrintASCII();
     bmp.PrintASCII(width);
-    bmp.PrintASCII(width,false);
-    bmp.PrintASCII(width, true, true);
+    //bmp.PrintASCII(width, false);
+    //bmp.PrintASCII(width, true, true);
 
     return 0;
 }

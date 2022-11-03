@@ -25,13 +25,30 @@ public static class ASCIIPrint
         return index;
     }
 
-    private static string ToASCIIStr(System.Drawing.Color c, bool useLong = false)
+    private static string GetShadingArray(bool useLong = false)
     {
         //string shortArr = " ░▒▓█";
         string shortArr = " .:-=+*#%@";
         string longArr = " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
-        int idx = (int)Math.Round(c.GetSaturation() * ((useLong ? longArr.Length : shortArr.Length) - 1));
-        char ch = useLong ? longArr[idx] : shortArr[idx];
+        return useLong ? longArr : shortArr;
+    }
+
+    //used in DominantConsoleColor to determine a pixels weight based on how visible it is
+    private static float GetShadingWeight(Color c, bool useLong = false)
+    {
+        char ch = ToASCIIStr(c, useLong)[0];
+        string arr = GetShadingArray(useLong);
+        int idx = arr.IndexOf(ch);
+        float pct = arr.Length+1 / (idx + 1);
+        //ignore blank pixels or illegal characters
+        return idx == -1 || ch == arr[0] ? 0 : pct;
+    }
+
+    private static string ToASCIIStr(System.Drawing.Color c, bool useLong = false)
+    {
+        string arr = GetShadingArray(useLong);
+        int idx = (int)Math.Round(c.GetSaturation() * (arr.Length - 1));
+        char ch = arr[idx];
         string res = ch + "" + ch; //double characters up to make them closer to squares
         return res;
     }
@@ -39,7 +56,7 @@ public static class ASCIIPrint
     /**
      * Print the BitMap to the console on Windows.
      */
-    public static void PrintASCII(this Bitmap src, int minSide=0, bool fit = true,bool useLongArray=false)
+    public static void PrintASCII(this Bitmap src, int minSide = 0, bool fit = true, bool useLongArray = false)
     {
         ConsoleColor origBg = Console.BackgroundColor;
         ConsoleColor origFg = Console.ForegroundColor;
@@ -69,12 +86,50 @@ public static class ASCIIPrint
             {
                 Color c = bmpMin.GetPixel(j, i);
                 Console.ForegroundColor = (ConsoleColor)ASCIIPrint.ToConsoleColor(c);
-                Console.Write(ASCIIPrint.ToASCIIStr(c,useLongArray));
+                Console.Write(ASCIIPrint.ToASCIIStr(c, useLongArray));
             }
             System.Console.WriteLine();
         }
         //reset the console colors
         Console.BackgroundColor = origBg;
         Console.ForegroundColor = origFg;
+    }
+
+    public static ConsoleColor[] DominantConsoleColors(this Bitmap src, int num = 0, bool useLong = false)
+    {
+        if (num == 0)
+        {
+            num = 16;
+        }
+        num = Math.Max(1, num);
+        Dictionary<ConsoleColor, float> colors = new Dictionary<ConsoleColor, float>();
+        for (int i = 0; i < src.Height - 1; i++)
+        {
+            for (int j = 0; j < src.Width - 1; j++)
+            {
+                Color c = src.GetPixel(j, i);
+                ConsoleColor col = (ConsoleColor)ASCIIPrint.ToConsoleColor(c);
+                float weight = GetShadingWeight(c, useLong);
+                //ignore blank pixels
+                if (weight > 0)
+                {
+                    if (!colors.ContainsKey(col))
+                    {
+                        colors.Add(col, weight);
+                    }
+                    else
+                    {
+                        colors[col] += weight;
+                    }
+                }
+            }
+        }
+        List<KeyValuePair<ConsoleColor, float>> ordered = colors.OrderByDescending(c => c.Value).ToList();
+        return ordered.Take(Math.Min(colors.Count, num)).Select(x => (ConsoleColor)x.Key).ToArray();
+    }
+
+    public static ConsoleColor DominantConsolColor(this Bitmap src)
+    {
+        return src.DominantConsoleColors(1)[0];
     }
 }

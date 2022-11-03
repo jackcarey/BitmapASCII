@@ -22,6 +22,14 @@
     "ASCIIArt - gradient": {
       "commandName": "Project",
       "commandLineArgs": "gradient.jpg"
+    },
+    "ASCIIArt - F1 Logo small": {
+      "commandName": "Project",
+      "commandLineArgs": "f1-logo.jpg 10"
+    },
+    "ASCIIArt - F1 car": {
+      "commandName": "Project",
+      "commandLineArgs": "f1.jpg"
     }
   }
 }
