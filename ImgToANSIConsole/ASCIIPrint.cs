@@ -32,7 +32,7 @@ public static class ASCIIPrint
         string longArr = " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
         int idx = (int)Math.Round(c.GetSaturation() * ((useLong ? longArr.Length : shortArr.Length) - 1));
         char ch = useLong ? longArr[idx] : shortArr[idx];
-        string res = ch + "" + ch;
+        string res = ch + "" + ch; //double characters up to make them closer to squares
         return res;
     }
 
