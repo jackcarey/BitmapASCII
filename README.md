@@ -25,3 +25,4 @@ bmp.PrintASCII(width,false);       //print at a fixed width
 bmp.PrintASCII(width, true, true); //print responsively and using the more detailed shading characters
 ```
 
+![cat](preview.jpg)
